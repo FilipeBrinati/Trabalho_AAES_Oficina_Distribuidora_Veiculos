@@ -1,9 +1,8 @@
 package factoryMethod;
 
 
-public class Sedan implements Carro {
-    @Override
-    public String getModelo() {
-        return "Sedan";
+public class Sedan extends Carro {
+    public Sedan() {
+        super("Sedan", 50000.0);
     }
 }

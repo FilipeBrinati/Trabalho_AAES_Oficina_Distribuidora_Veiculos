@@ -1,8 +1,7 @@
 package factoryMethod;
 
-public class SUV implements Carro {
-    @Override
-    public String getModelo() {
-        return "SUV";
+public class SUV extends Carro {
+    public SUV() {
+        super("SUV", 70000.0);
     }
 }
