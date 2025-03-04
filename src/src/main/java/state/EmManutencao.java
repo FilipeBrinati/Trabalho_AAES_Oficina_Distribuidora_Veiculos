@@ -1,6 +1,5 @@
 package state;
 
-import singleton.EstoqueCarros;
 import factoryMethod.Carro;
 
 public class EmManutencao implements EstadoCarro {
@@ -11,7 +10,6 @@ public class EmManutencao implements EstadoCarro {
 
     @Override
     public void entregarCarro(Carro carro) {
-        EstoqueCarros.getInstance().removerCarroEmManutencao(carro);
         System.out.println("O carro " + carro.getModelo() + " está pronto para entrega.");
     }
 }

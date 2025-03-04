@@ -2,19 +2,19 @@ package abstractFactory;
 
 import composite.Peça;
 
-public class FabricaPeçasSUV implements FabricaPeças {
+public class FabricaPeçasSedan implements FabricaPeças {
     @Override
     public Peça createMotor() {
-        return new Peça("Motor SUV", 6000.0);
+        return new Peça("Motor Sedan", 5000.0);
     }
 
     @Override
     public Peça createPneu() {
-        return new Peça("Pneu SUV", 2500.0);
+        return new Peça("Pneu Sedan", 2000.0);
     }
 
     @Override
     public Peça createComponenteEspecifico() {
-        return new Peça("Tração 4x4", 4000.0);
+        return new Peça("Suspensão Esportiva", 3000.0);
     }
 }

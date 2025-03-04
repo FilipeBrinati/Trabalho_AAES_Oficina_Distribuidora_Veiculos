@@ -1,7 +1,9 @@
 package abstractFactory;
 
+import composite.Peça;
+
 public interface FabricaPeças {
-    Motor createMotor();
-    Pneu createPneu();
-    SistemaEletrico createSistemaEletrico();
+    Peça createMotor();
+    Peça createPneu();
+    Peça createComponenteEspecifico();
 }
