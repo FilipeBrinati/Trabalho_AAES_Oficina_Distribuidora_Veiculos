@@ -1,19 +1,22 @@
 package decorator;
 
-public abstract class CarroDecorator implements Carro {
-    protected Carro carro;
+import factoryMethod.Carro;
 
-    public CarroDecorator(Carro carro) {
-        this.carro = carro;
+public abstract class CarroDecorator extends Carro {
+    protected Carro carroDecorado;
+
+    public CarroDecorator(Carro carroDecorado) {
+        super(carroDecorado.getModelo(), carroDecorado.getPreco());
+        this.carroDecorado = carroDecorado;
     }
 
     @Override
     public String descricao() {
-        return carro.descricao();
+        return carroDecorado.descricao();
     }
 
     @Override
     public double getPreco() {
-        return carro.getPreco();
+        return carroDecorado.getPreco();
     }
 }

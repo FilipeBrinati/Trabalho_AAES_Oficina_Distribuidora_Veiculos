@@ -1,6 +1,5 @@
 package factoryMethod;
 
-
 public abstract class Carro {
     private String modelo;
     private double preco;

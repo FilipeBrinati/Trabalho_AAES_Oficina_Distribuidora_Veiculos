@@ -1,17 +1,19 @@
 package decorator;
 
+import factoryMethod.Carro;
+
 public class SistemaSomPremiumDecorator extends CarroDecorator {
-    public SistemaSomPremiumDecorator(Carro carro) {
-        super(carro);
+    public SistemaSomPremiumDecorator(Carro carroDecorado) {
+        super(carroDecorado);
     }
 
     @Override
     public String descricao() {
-        return carro.descricao() + ", Sistema de Som Premium";
+        return carroDecorado.descricao() + ", Sistema de Som Premium";
     }
 
     @Override
     public double getPreco() {
-        return carro.getPreco() + 1500.0;
+        return carroDecorado.getPreco() + 1500.0;
     }
 }

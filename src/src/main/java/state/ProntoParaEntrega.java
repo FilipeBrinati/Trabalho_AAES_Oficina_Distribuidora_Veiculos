@@ -4,12 +4,12 @@ import factoryMethod.Carro;
 
 public class ProntoParaEntrega implements EstadoCarro {
     @Override
-    public void realizarManutencao(Carro carro) {
-        System.out.println("O carro " + carro.getModelo() + " foi enviado para manutenção.");
+    public String realizarManutencao(Carro carro) {
+        return "O carro " + carro.getModelo() + " foi enviado para manutenção.";
     }
 
     @Override
-    public void entregarCarro(Carro carro) {
-        System.out.println("O carro " + carro.getModelo() + " foi entregue ao cliente.");
+    public String entregarCarro(Carro carro) {
+        return "O carro " + carro.getModelo() + " foi entregue ao cliente.";
     }
 }

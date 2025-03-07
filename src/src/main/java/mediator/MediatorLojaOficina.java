@@ -22,26 +22,32 @@ public class MediatorLojaOficina {
         clientes.add(cliente);
     }
 
-    public void venderCarro(Carro carro) {
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public String venderCarro(Carro carro) {
         estoqueCarros.adicionarCarro(carro);
-        notificarClientes("Novo carro disponível: " + carro.getModelo());
+        return notificarClientes("Novo carro disponível: " + carro.getModelo());
     }
 
-    public void enviarParaManutencao(Carro carro) {
+    public String enviarParaManutencao(Carro carro) {
         estoqueCarros.adicionarCarroEmManutencao(carro);
-        notificarClientes("O carro " + carro.getModelo() + " foi enviado para manutenção.");
+        return notificarClientes("O carro " + carro.getModelo() + " foi enviado para manutenção.");
     }
 
-    public void finalizarManutencao(Carro carro) {
+    public String finalizarManutencao(Carro carro) {
         estoqueCarros.removerCarroEmManutencao(carro);
         EstadoCarro estadoPronto = new ProntoParaEntrega();
         estadoPronto.entregarCarro(carro);
-        notificarClientes("O carro " + carro.getModelo() + " está pronto para entrega.");
+        return notificarClientes("O carro " + carro.getModelo() + " está pronto para entrega.");
     }
 
-    private void notificarClientes(String mensagem) {
+    private String notificarClientes(String mensagem) {
+        StringBuilder notificacoes = new StringBuilder();
         for (Cliente cliente : clientes) {
-            cliente.atualizar(mensagem);
+            notificacoes.append(cliente.atualizar(mensagem)).append("\n");
         }
+        return notificacoes.toString();
     }
 }

@@ -8,7 +8,7 @@ public class Cliente implements Observer {
     }
 
     @Override
-    public void atualizar(String mensagem) {
-        System.out.println(nome + " recebeu a notificação: " + mensagem);
+    public String atualizar(String mensagem) {
+        return nome + " recebeu a notificação: " + mensagem;
     }
 }

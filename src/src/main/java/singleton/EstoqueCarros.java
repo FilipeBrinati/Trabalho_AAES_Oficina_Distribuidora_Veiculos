@@ -22,23 +22,26 @@ public class EstoqueCarros {
         return instance;
     }
 
-    public void adicionarCarro(Carro carro) {
+    public String adicionarCarro(Carro carro) {
         carros.add(carro);
+        return "Carro " + carro.getModelo() + " adicionado ao estoque.";
     }
 
-    public void adicionarCarroEmManutencao(Carro carro) {
+    public String adicionarCarroEmManutencao(Carro carro) {
         carrosEmManutencao.add(carro);
+        return "Carro " + carro.getModelo() + " enviado para manutenção.";
     }
 
-    public void removerCarroEmManutencao(Carro carro) {
+    public String removerCarroEmManutencao(Carro carro) {
         carrosEmManutencao.remove(carro);
-    }
-
-    public List<Carro> getCarrosEmManutencao() {
-        return carrosEmManutencao;
+        return "Carro " + carro.getModelo() + " pronto para entrega.";
     }
 
     public List<Carro> getCarrosProntosParaEntrega() {
         return carros;
+    }
+
+    public List<Carro> getCarrosEmManutencao() {
+        return carrosEmManutencao;
     }
 }
