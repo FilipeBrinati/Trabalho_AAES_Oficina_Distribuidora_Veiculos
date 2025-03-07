@@ -1,0 +1,130 @@
+@startuml
+
+package "abstractFactory" {
+    interface FabricaPeças {
+        +createMotor(): Peça
+        +createPneu(): Peça
+        +createComponenteEspecifico(): Peça
+    }
+    class FabricaPeçasSedan implements FabricaPeças
+    class FabricaPeçasSUV implements FabricaPeças
+}
+
+package "composite" {
+    interface ComponenteCarro {
+        +descricao(): String
+        +getPreco(): double
+    }
+    class KitCarro implements ComponenteCarro {
+        -componentes: List<ComponenteCarro>
+        +adicionar(ComponenteCarro): void
+    }
+    class Peça implements ComponenteCarro {
+        -nome: String
+        -preco: double
+        +Peça(String, double)
+    }
+}
+
+package "decorator" {
+    abstract class CarroDecorator extends Carro {
+        -carroDecorado: Carro
+        +CarroDecorator(Carro)
+    }
+    class BancosCouroDecorator extends CarroDecorator
+    class SistemaSomPremiumDecorator extends CarroDecorator
+}
+
+package "factoryMethod" {
+    abstract class Carro {
+        -modelo: String
+        -preco: double
+        +Carro(String, double)
+        +getModelo(): String
+        +getPreco(): double
+        +descricao(): String
+    }
+    class Sedan extends Carro
+    class SUV extends Carro
+    abstract class CarroFactory {
+        +criarCarro(): Carro
+    }
+    class SedanFactory extends CarroFactory
+    class SUVFactory extends CarroFactory
+}
+
+package "mediator" {
+    class MediatorLojaOficina {
+        -estoqueCarros: EstoqueCarros
+        -clientes: List<Cliente>
+        +adicionarCliente(Cliente): void
+        +venderCarro(Carro, Cliente): String
+        +enviarParaManutencao(Carro): String
+        +finalizarManutencao(Carro): String
+    }
+}
+
+package "observer" {
+    class Cliente implements Observer {
+        -nome: String
+        -ultimaNotificacao: String
+        -carros: List<Carro>
+        +Cliente(String)
+        +adicionarCarro(Carro): void
+        +getCarros(): List<Carro>
+        +update(Observable, Object): void
+    }
+}
+
+package "singleton" {
+    class EstoqueCarros extends Observable {
+        -instance: EstoqueCarros
+        -carros: List<Carro>
+        -carrosEmManutencao: List<Carro>
+        -EstoqueCarros()
+        +getInstance(): EstoqueCarros
+        +adicionarCarro(Carro): String
+        +adicionarCarroEmManutencao(Carro): String
+        +removerCarroEmManutencao(Carro): String
+    }
+}
+
+package "state" {
+    interface EstadoCarro {
+        +realizarManutencao(Carro): String
+        +entregarCarro(Carro): String
+    }
+    class EmManutencao implements EstadoCarro
+    class ProntoParaEntrega implements EstadoCarro
+}
+
+package "strategy" {
+    interface EstrategiaManutencao {
+        +realizarManutencao(Carro, FabricaPeças): String
+    }
+    class ManutencaoSedan implements EstrategiaManutencao
+    class ManutencaoSUV implements EstrategiaManutencao
+}
+
+' Relacionamentos entre classes
+FabricaPeçasSedan --> Peça
+FabricaPeçasSUV --> Peça
+KitCarro --> ComponenteCarro
+Peça --> ComponenteCarro
+CarroDecorator --> Carro
+BancosCouroDecorator --> CarroDecorator
+SistemaSomPremiumDecorator --> CarroDecorator
+Sedan --> Carro
+SUV --> Carro
+SedanFactory --> Sedan
+SUVFactory --> SUV
+MediatorLojaOficina --> EstoqueCarros
+MediatorLojaOficina --> Cliente
+Cliente --> Carro
+EstoqueCarros --> Carro
+EmManutencao --> EstadoCarro
+ProntoParaEntrega --> EstadoCarro
+ManutencaoSedan --> EstrategiaManutencao
+ManutencaoSUV --> EstrategiaManutencao
+
+@enduml
