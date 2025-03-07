@@ -1,14 +1,22 @@
 package observer;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class Cliente implements Observer {
     private String nome;
+    private String ultimaNotificacao;
 
     public Cliente(String nome) {
         this.nome = nome;
     }
 
+    public String getUltimaNotificacao() {
+        return this.ultimaNotificacao;
+    }
+
     @Override
-    public String atualizar(String mensagem) {
-        return nome + " recebeu a notificação: " + mensagem;
+    public void update(Observable observable, Object arg) {
+        this.ultimaNotificacao = this.nome + " recebeu a notificação: " + arg;
     }
 }

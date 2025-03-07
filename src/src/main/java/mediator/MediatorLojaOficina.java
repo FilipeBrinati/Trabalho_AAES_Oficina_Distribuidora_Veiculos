@@ -1,13 +1,11 @@
 package mediator;
 
+import singleton.EstoqueCarros;
+import observer.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
 import factoryMethod.Carro;
-import observer.Cliente;
-import singleton.EstoqueCarros;
-import state.EstadoCarro;
-import state.ProntoParaEntrega;
 
 public class MediatorLojaOficina {
     private EstoqueCarros estoqueCarros;
@@ -20,6 +18,7 @@ public class MediatorLojaOficina {
 
     public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
+        estoqueCarros.addObserver(cliente); // Adiciona o cliente como observador
     }
 
     public List<Cliente> getClientes() {
@@ -27,27 +26,14 @@ public class MediatorLojaOficina {
     }
 
     public String venderCarro(Carro carro) {
-        estoqueCarros.adicionarCarro(carro);
-        return notificarClientes("Novo carro disponível: " + carro.getModelo());
+        return estoqueCarros.adicionarCarro(carro);
     }
 
     public String enviarParaManutencao(Carro carro) {
-        estoqueCarros.adicionarCarroEmManutencao(carro);
-        return notificarClientes("O carro " + carro.getModelo() + " foi enviado para manutenção.");
+        return estoqueCarros.adicionarCarroEmManutencao(carro);
     }
 
     public String finalizarManutencao(Carro carro) {
-        estoqueCarros.removerCarroEmManutencao(carro);
-        EstadoCarro estadoPronto = new ProntoParaEntrega();
-        estadoPronto.entregarCarro(carro);
-        return notificarClientes("O carro " + carro.getModelo() + " está pronto para entrega.");
-    }
-
-    private String notificarClientes(String mensagem) {
-        StringBuilder notificacoes = new StringBuilder();
-        for (Cliente cliente : clientes) {
-            notificacoes.append(cliente.atualizar(mensagem)).append("\n");
-        }
-        return notificacoes.toString();
+        return estoqueCarros.removerCarroEmManutencao(carro);
     }
 }

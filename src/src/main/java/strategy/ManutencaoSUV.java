@@ -7,20 +7,22 @@ import factoryMethod.Carro;
 
 public class ManutencaoSUV implements EstrategiaManutencao {
     @Override
-    public void realizarManutencao(Carro carro, FabricaPeças fabricaPeças) {
-        verificarFreios();
-        trocarOleo();
+    public String realizarManutencao(Carro carro, FabricaPeças fabricaPeças) {
+        StringBuilder resultado = new StringBuilder();
+        resultado.append(verificarFreios()).append("\n");
+        resultado.append(trocarOleo()).append("\n");
         KitCarro kit = montarKitPeças(fabricaPeças);
-        executarEtapaEspecifica(kit);
-        System.out.println("Kit adicionado ao carro " + carro.getModelo() + ":\n" + kit.descricao());
+        resultado.append(executarEtapaEspecifica(kit)).append("\n");
+        resultado.append("Kit adicionado ao carro ").append(carro.getModelo()).append(":\n").append(kit.descricao());
+        return resultado.toString();
     }
 
-    private void verificarFreios() {
-        System.out.println("Verificando freios...");
+    private String verificarFreios() {
+        return "Verificando freios...";
     }
 
-    private void trocarOleo() {
-        System.out.println("Trocando óleo...");
+    private String trocarOleo() {
+        return "Trocando óleo...";
     }
 
     private KitCarro montarKitPeças(FabricaPeças fabricaPeças) {
@@ -30,8 +32,8 @@ public class ManutencaoSUV implements EstrategiaManutencao {
         return kit;
     }
 
-    private void executarEtapaEspecifica(KitCarro kit) {
+    private String executarEtapaEspecifica(KitCarro kit) {
         kit.adicionar(new Peça("Tração 4x4", 4000.0));
-        System.out.println("Etapa específica para SUV: Tração 4x4 adicionada.");
+        return "Etapa específica para SUV: Tração 4x4 adicionada.";
     }
 }

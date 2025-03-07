@@ -4,5 +4,5 @@ import abstractFactory.FabricaPeças;
 import factoryMethod.Carro;
 
 public interface EstrategiaManutencao {
-    void realizarManutencao(Carro carro, FabricaPeças fabricaPeças);
+    String realizarManutencao(Carro carro, FabricaPeças fabricaPeças);
 }
