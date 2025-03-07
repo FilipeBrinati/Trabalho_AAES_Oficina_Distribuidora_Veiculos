@@ -4,7 +4,6 @@ import singleton.EstoqueCarros;
 import observer.Cliente;
 import java.util.ArrayList;
 import java.util.List;
-
 import factoryMethod.Carro;
 
 public class MediatorLojaOficina {
@@ -25,8 +24,10 @@ public class MediatorLojaOficina {
         return clientes;
     }
 
-    public String venderCarro(Carro carro) {
-        return estoqueCarros.adicionarCarro(carro);
+    public String venderCarro(Carro carro, Cliente cliente) {
+        String resultado = estoqueCarros.adicionarCarro(carro);
+        cliente.adicionarCarro(carro); // Associa o carro ao cliente
+        return resultado;
     }
 
     public String enviarParaManutencao(Carro carro) {

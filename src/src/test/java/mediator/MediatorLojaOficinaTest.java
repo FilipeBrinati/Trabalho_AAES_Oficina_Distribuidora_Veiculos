@@ -1,7 +1,6 @@
 package mediator;
 
 import org.junit.jupiter.api.Test;
-
 import factoryMethod.Carro;
 import factoryMethod.SedanFactory;
 import observer.Cliente;
@@ -10,15 +9,31 @@ import singleton.EstoqueCarros;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MediatorLojaOficinaTest {
+
+    @Test
+    void testAdicionarCliente() {
+        EstoqueCarros estoque = EstoqueCarros.getInstance();
+        MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
+        Cliente cliente = new Cliente("João");
+
+        mediator.adicionarCliente(cliente);
+
+        assertTrue(mediator.getClientes().contains(cliente));
+    }
+
     @Test
     void testVenderCarro() {
         EstoqueCarros estoque = EstoqueCarros.getInstance();
         MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
         Carro carro = new SedanFactory().criarCarro();
         Cliente cliente = new Cliente("João");
+
         mediator.adicionarCliente(cliente);
-        mediator.venderCarro(carro);
+        String resultado = mediator.venderCarro(carro, cliente);
+
+        assertEquals("Carro Sedan adicionado ao estoque.", resultado);
         assertTrue(cliente.getUltimaNotificacao().contains("João recebeu a notificação: Novo carro disponível: Sedan"));
+        assertTrue(cliente.getCarros().contains(carro));
     }
 
     @Test
@@ -27,8 +42,11 @@ class MediatorLojaOficinaTest {
         MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
         Carro carro = new SedanFactory().criarCarro();
         Cliente cliente = new Cliente("Maria");
+
         mediator.adicionarCliente(cliente);
-        mediator.enviarParaManutencao(carro);
+        String resultado = mediator.enviarParaManutencao(carro);
+
+        assertEquals("Carro Sedan enviado para manutenção.", resultado);
         assertTrue(cliente.getUltimaNotificacao().contains("Maria recebeu a notificação: O carro Sedan foi enviado para manutenção."));
     }
 
@@ -38,9 +56,12 @@ class MediatorLojaOficinaTest {
         MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
         Carro carro = new SedanFactory().criarCarro();
         Cliente cliente = new Cliente("Pedro");
+
         mediator.adicionarCliente(cliente);
         mediator.enviarParaManutencao(carro);
-        mediator.finalizarManutencao(carro);
+        String resultado = mediator.finalizarManutencao(carro);
+
+        assertEquals("Carro Sedan pronto para entrega.", resultado);
         assertTrue(cliente.getUltimaNotificacao().contains("Pedro recebeu a notificação: O carro Sedan está pronto para entrega."));
     }
 }
