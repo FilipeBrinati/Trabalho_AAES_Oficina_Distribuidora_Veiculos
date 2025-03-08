@@ -1,6 +1,7 @@
 package observer;
 
 import factoryMethod.Carro;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;

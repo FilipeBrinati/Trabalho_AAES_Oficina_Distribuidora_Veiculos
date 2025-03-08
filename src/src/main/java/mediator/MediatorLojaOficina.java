@@ -2,9 +2,10 @@ package mediator;
 
 import singleton.EstoqueCarros;
 import observer.Cliente;
+import factoryMethod.Carro;
+
 import java.util.ArrayList;
 import java.util.List;
-import factoryMethod.Carro;
 
 public class MediatorLojaOficina {
     private EstoqueCarros estoqueCarros;
@@ -17,7 +18,7 @@ public class MediatorLojaOficina {
 
     public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
-        estoqueCarros.addObserver(cliente); // Adiciona o cliente como observador
+        estoqueCarros.addObserver(cliente); 
     }
 
     public List<Cliente> getClientes() {
@@ -26,7 +27,9 @@ public class MediatorLojaOficina {
 
     public String venderCarro(Carro carro, Cliente cliente) {
         String resultado = estoqueCarros.adicionarCarro(carro);
-        cliente.adicionarCarro(carro); // Associa o carro ao cliente
+        if (cliente != null) {
+            cliente.adicionarCarro(carro);
+        }
         return resultado;
     }
 
