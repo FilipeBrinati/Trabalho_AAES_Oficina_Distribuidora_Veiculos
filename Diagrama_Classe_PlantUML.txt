@@ -177,5 +177,7 @@ ManutencaoSUV --> EstrategiaManutencao
 ManutencaoHatch --> EstrategiaManutencao
 ManutencaoPickup --> EstrategiaManutencao
 ManutencaoCaminhão --> EstrategiaManutencao
+Carro --> EstadoCarro
+Carro --> EstrategiaManutencao
 
 @enduml
