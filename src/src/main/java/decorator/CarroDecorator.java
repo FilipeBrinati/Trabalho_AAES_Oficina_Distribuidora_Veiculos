@@ -8,6 +8,10 @@ public abstract class CarroDecorator extends Carro {
     public CarroDecorator(Carro carroDecorado) {
         super(carroDecorado.getModelo(), carroDecorado.getPreco());
         this.carroDecorado = carroDecorado;
+
+        if (!carroDecorado.isEmManutencao()) {
+            throw new IllegalStateException("O carro não está em manutenção. Personalização não permitida.");
+        }
     }
 
     @Override

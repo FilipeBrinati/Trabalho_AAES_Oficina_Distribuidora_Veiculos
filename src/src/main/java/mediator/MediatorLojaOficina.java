@@ -18,7 +18,7 @@ public class MediatorLojaOficina {
 
     public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
-        estoqueCarros.addObserver(cliente); 
+        estoqueCarros.addObserver(cliente);
     }
 
     public List<Cliente> getClientes() {
@@ -33,11 +33,13 @@ public class MediatorLojaOficina {
         return resultado;
     }
 
-    public String enviarParaManutencao(Carro carro) {
+    public String enviarParaManutenção(Carro carro) {
+        carro.setEmManutencao(true); // Define o carro como em manutenção
         return estoqueCarros.adicionarCarroEmManutencao(carro);
     }
 
     public String finalizarManutencao(Carro carro) {
+        carro.setEmManutencao(false); // Define o carro como fora de manutenção
         return estoqueCarros.removerCarroEmManutencao(carro);
     }
 }
