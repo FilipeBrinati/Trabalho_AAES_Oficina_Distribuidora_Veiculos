@@ -1,13 +1,31 @@
 @startuml
 
 package "abstractFactory" {
-    interface FabricaPeças {
+    class FabricaPeçasSedan {
         +createMotor(): Peça
         +createPneu(): Peça
         +createComponenteEspecifico(): Peça
     }
-    class FabricaPeçasSedan implements FabricaPeças
-    class FabricaPeçasSUV implements FabricaPeças
+    class FabricaPeçasSUV {
+        +createMotor(): Peça
+        +createPneu(): Peça
+        +createComponenteEspecifico(): Peça
+    }
+    class FabricaPeçasHatch {
+        +createMotor(): Peça
+        +createPneu(): Peça
+        +createComponenteEspecifico(): Peça
+    }
+    class FabricaPeçasPickup {
+        +createMotor(): Peça
+        +createPneu(): Peça
+        +createComponenteEspecifico(): Peça
+    }
+    class FabricaPeçasCaminhão {
+        +createMotor(): Peça
+        +createPneu(): Peça
+        +createComponenteEspecifico(): Peça
+    }
 }
 
 package "composite" {
@@ -33,24 +51,40 @@ package "decorator" {
     }
     class BancosCouroDecorator extends CarroDecorator
     class SistemaSomPremiumDecorator extends CarroDecorator
+    class TetoSolarDecorator extends CarroDecorator
+    class RodasEsportivasDecorator extends CarroDecorator
+    class PinturaEspecialDecorator extends CarroDecorator
 }
 
 package "factoryMethod" {
     abstract class Carro {
         -modelo: String
         -preco: double
+        -emManutencao: boolean
+        -estado: EstadoCarro
         +Carro(String, double)
         +getModelo(): String
         +getPreco(): double
+        +isEmManutencao(): boolean
+        +setEmManutencao(boolean): void
+        +getEstado(): EstadoCarro
+        +setEstado(EstadoCarro): void
+        +avancarEstado(): String
         +descricao(): String
     }
     class Sedan extends Carro
     class SUV extends Carro
+    class Hatch extends Carro
+    class Pickup extends Carro
+    class Caminhão extends Carro
     abstract class CarroFactory {
         +criarCarro(): Carro
     }
     class SedanFactory extends CarroFactory
     class SUVFactory extends CarroFactory
+    class HatchFactory extends CarroFactory
+    class PickupFactory extends CarroFactory
+    class CaminhãoFactory extends CarroFactory
 }
 
 package "mediator" {
@@ -59,7 +93,7 @@ package "mediator" {
         -clientes: List<Cliente>
         +adicionarCliente(Cliente): void
         +venderCarro(Carro, Cliente): String
-        +enviarParaManutencao(Carro): String
+        +enviarParaManutenção(Carro): String
         +finalizarManutencao(Carro): String
     }
 }
@@ -91,8 +125,7 @@ package "singleton" {
 
 package "state" {
     interface EstadoCarro {
-        +realizarManutencao(Carro): String
-        +entregarCarro(Carro): String
+        +avancar(Carro): String
     }
     class EmManutencao implements EstadoCarro
     class ProntoParaEntrega implements EstadoCarro
@@ -104,20 +137,35 @@ package "strategy" {
     }
     class ManutencaoSedan implements EstrategiaManutencao
     class ManutencaoSUV implements EstrategiaManutencao
+    class ManutencaoHatch implements EstrategiaManutencao
+    class ManutencaoPickup implements EstrategiaManutencao
+    class ManutencaoCaminhão implements EstrategiaManutencao
 }
 
 ' Relacionamentos entre classes
 FabricaPeçasSedan --> Peça
 FabricaPeçasSUV --> Peça
+FabricaPeçasHatch --> Peça
+FabricaPeçasPickup --> Peça
+FabricaPeçasCaminhão --> Peça
 KitCarro --> ComponenteCarro
 Peça --> ComponenteCarro
 CarroDecorator --> Carro
 BancosCouroDecorator --> CarroDecorator
 SistemaSomPremiumDecorator --> CarroDecorator
+TetoSolarDecorator --> CarroDecorator
+RodasEsportivasDecorator --> CarroDecorator
+PinturaEspecialDecorator --> CarroDecorator
 Sedan --> Carro
 SUV --> Carro
+Hatch --> Carro
+Pickup --> Carro
+Caminhão --> Carro
 SedanFactory --> Sedan
 SUVFactory --> SUV
+HatchFactory --> Hatch
+PickupFactory --> Pickup
+CaminhãoFactory --> Caminhão
 MediatorLojaOficina --> EstoqueCarros
 MediatorLojaOficina --> Cliente
 Cliente --> Carro
@@ -126,5 +174,8 @@ EmManutencao --> EstadoCarro
 ProntoParaEntrega --> EstadoCarro
 ManutencaoSedan --> EstrategiaManutencao
 ManutencaoSUV --> EstrategiaManutencao
+ManutencaoHatch --> EstrategiaManutencao
+ManutencaoPickup --> EstrategiaManutencao
+ManutencaoCaminhão --> EstrategiaManutencao
 
 @enduml
