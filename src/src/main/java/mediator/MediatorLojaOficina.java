@@ -35,11 +35,15 @@ public class MediatorLojaOficina {
 
     public String enviarParaManutencao(Carro carro) {
         carro.setEmManutencao(true);
-        return estoqueCarros.adicionarCarroEmManutencao(carro);
+        String mensagem = carro.avancarEstado();
+        estoqueCarros.adicionarCarroEmManutencao(carro);
+        return mensagem;
     }
 
     public String finalizarManutencao(Carro carro) {
         carro.setEmManutencao(false);
-        return estoqueCarros.removerCarroEmManutencao(carro);
+        String mensagem = carro.avancarEstado();
+        estoqueCarros.removerCarroEmManutencao(carro);
+        return mensagem;
     }
 }

@@ -8,19 +8,18 @@ import factoryMethod.SedanFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EstadoCarroTest {
-    @Test
-    void testEmManutencao() {
+	@Test
+    void testAvancarEstado() {
         Carro carro = new SedanFactory().criarCarro();
-        EstadoCarro estado = new EmManutencao();
-        assertEquals("O carro Sedan já está em manutenção.", estado.realizarManutencao(carro));
-        assertEquals("O carro Sedan está pronto para entrega.", estado.entregarCarro(carro));
-    }
 
-    @Test
-    void testProntoParaEntrega() {
-        Carro carro = new SedanFactory().criarCarro();
-        EstadoCarro estado = new ProntoParaEntrega();
-        assertEquals("O carro Sedan foi enviado para manutenção.", estado.realizarManutencao(carro));
-        assertEquals("O carro Sedan foi entregue ao cliente.", estado.entregarCarro(carro));
+        assertTrue(carro.getEstado() instanceof ProntoParaEntrega);
+
+        String mensagem1 = carro.avancarEstado();
+        assertEquals("Carro Sedan foi enviado para manutenção.", mensagem1);
+        assertTrue(carro.getEstado() instanceof EmManutencao);
+
+        String mensagem2 = carro.avancarEstado();
+        assertEquals("Carro Sedan está pronto para entrega.", mensagem2);
+        assertTrue(carro.getEstado() instanceof ProntoParaEntrega);
     }
 }
