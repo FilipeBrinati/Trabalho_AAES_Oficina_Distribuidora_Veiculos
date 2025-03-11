@@ -33,13 +33,13 @@ public class MediatorLojaOficina {
         return resultado;
     }
 
-    public String enviarParaManutenção(Carro carro) {
-        carro.setEmManutencao(true); // Define o carro como em manutenção
+    public String enviarParaManutencao(Carro carro) {
+        carro.setEmManutencao(true);
         return estoqueCarros.adicionarCarroEmManutencao(carro);
     }
 
     public String finalizarManutencao(Carro carro) {
-        carro.setEmManutencao(false); // Define o carro como fora de manutenção
+        carro.setEmManutencao(false);
         return estoqueCarros.removerCarroEmManutencao(carro);
     }
 }

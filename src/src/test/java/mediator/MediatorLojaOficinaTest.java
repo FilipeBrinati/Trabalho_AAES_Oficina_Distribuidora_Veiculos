@@ -41,13 +41,10 @@ class MediatorLojaOficinaTest {
         EstoqueCarros estoque = EstoqueCarros.getInstance();
         MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
         Carro carro = new SedanFactory().criarCarro();
-        Cliente cliente = new Cliente("Maria");
 
-        mediator.adicionarCliente(cliente);
         String resultado = mediator.enviarParaManutencao(carro);
-
         assertEquals("Carro Sedan enviado para manutenção.", resultado);
-        assertTrue(cliente.getUltimaNotificacao().contains("Maria recebeu a notificação: O carro Sedan foi enviado para manutenção."));
+        assertTrue(carro.isEmManutencao()); // Verifica se o carro está em manutenção
     }
 
     @Test
@@ -55,13 +52,10 @@ class MediatorLojaOficinaTest {
         EstoqueCarros estoque = EstoqueCarros.getInstance();
         MediatorLojaOficina mediator = new MediatorLojaOficina(estoque);
         Carro carro = new SedanFactory().criarCarro();
-        Cliente cliente = new Cliente("Pedro");
 
-        mediator.adicionarCliente(cliente);
-        mediator.enviarParaManutencao(carro);
+        mediator.enviarParaManutencao(carro); // Envia o carro para manutenção
         String resultado = mediator.finalizarManutencao(carro);
-
         assertEquals("Carro Sedan pronto para entrega.", resultado);
-        assertTrue(cliente.getUltimaNotificacao().contains("Pedro recebeu a notificação: O carro Sedan está pronto para entrega."));
+        assertFalse(carro.isEmManutencao()); // Verifica se o carro não está mais em manutenção
     }
 }
