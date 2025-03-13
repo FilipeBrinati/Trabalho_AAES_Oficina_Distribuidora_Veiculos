@@ -6,6 +6,6 @@ public class EmManutencao implements EstadoCarro {
     @Override
     public String avancar(Carro carro) {
         carro.setEstado(new ProntoParaEntrega());
-        return "Carro " + carro.getModelo() + " está pronto para entrega.";
+        return "Carro " + carro.getModelo() + " pronto para entrega.";
     }
 }
